@@ -35,7 +35,7 @@ class NearEarthObject:
     """
 
     def __init__(self, designation, name=None, diameter=None,
-                 hazardous='N', approaches=[]):
+                 hazardous='N', approaches=None):
         """Create a new `NearEarthObject`.
 
         :param designation: The primary designation for this NearEarthObject.
@@ -50,14 +50,18 @@ class NearEarthObject:
         self.name = name
         if name == '':
             self.name = None
-        self.diameter = float('nan')
-        if diameter:
+        try:
             self.diameter = float(diameter)
+        except ValueError:
+            self.diameter = float('nan')
+
         hazardous_dict = {'Y': True, 'N': False}
         self.hazardous = hazardous_dict.get(hazardous, False)
 
         # Create an empty initial collection of linked approaches.
-        self.approaches = approaches
+        self.approaches = []
+        if approaches:
+            self.approaches = approaches
 
     @property
     def fullname(self):
@@ -112,8 +116,14 @@ class CloseApproach:
         if neo:
             self._designation = neo.designation
         self.time = cd_to_datetime(time)
-        self.distance = float(distance)
-        self.velocity = float(velocity)
+        try:
+            self.distance = float(distance)
+        except ValueError:
+            self.distance = float('nan')
+        try:
+            self.velocity = float(velocity)
+        except ValueError:
+            self.velocity = float('nan')
 
         # Create an attribute for the referenced NEO, originally None.
         self.neo = neo
