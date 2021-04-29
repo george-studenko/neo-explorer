@@ -1,5 +1,4 @@
-"""Provide filters for querying close approaches and limit the generated
-results.
+"""Filters for querying close approaches and limit the generated results.
 
 The `create_filters` function produces a collection of objects that is used by
 the `query` method to generate a stream of `CloseApproach` objects that match
@@ -44,8 +43,7 @@ class AttributeFilter:
     """
 
     def __init__(self, op, value):
-        """Construct a new `AttributeFilter` from an binary predicate and a
-        reference value.
+        """Construct a new `AttributeFilter` from an predicate and value.
 
         The reference value will be supplied as the second (right-hand side)
         argument to the operator function. For example, an `AttributeFilter`
@@ -76,37 +74,53 @@ class AttributeFilter:
         raise UnsupportedCriterionError
 
     def __repr__(self):
+        """Representation string of AttributeFilter."""
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, " \
                f"value={self.value})"
 
 
 class DistanceFilter(AttributeFilter):
+    """Distance Filter."""
+
     @classmethod
     def get(cls, approach):
+        """Get the approach distance."""
         return approach.distance
 
 
 class VelocityFilter(AttributeFilter):
+    """Velocity Filter."""
+
     @classmethod
     def get(cls, approach):
+        """Get the velocity."""
         return approach.velocity
 
 
 class DiameterFilter(AttributeFilter):
+    """Diameter Filter."""
+
     @classmethod
     def get(cls, approach):
+        """Get the neo diameter."""
         return approach.neo.diameter
 
 
 class HazardousFilter(AttributeFilter):
+    """Is Hazardous Filter."""
+
     @classmethod
     def get(cls, approach):
+        """Get if the approach is hazardous."""
         return approach.neo.hazardous
 
 
 class DateFilter(AttributeFilter):
+    """Date Filter."""
+
     @classmethod
     def get(cls, approach):
+        """Get the approach date."""
         return approach.time.date()
 
 
@@ -186,7 +200,6 @@ def limit(iterator, n=None):
     """Produce a limited stream of values from an iterator.
 
     If `n` is 0 or None, don't limit the iterator at all.
-
     :param iterator: An iterator of values.
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.

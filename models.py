@@ -34,7 +34,6 @@ class NearEarthObject:
     `NEODatabase` constructor.
     """
 
-    # If you make changes, be sure to update the comments in this file.
     def __init__(self, designation, name=None, diameter=None,
                  hazardous='N', approaches=[]):
         """Create a new `NearEarthObject`.
@@ -75,8 +74,7 @@ class NearEarthObject:
                f"{len(self.approaches)} approaches to earth"
 
     def __repr__(self):
-        """Return `repr(self)`, a computer-readable string representation of
-         this object."""
+        """Return `repr(self)`, a computer-readable string representation."""
         return (f"NearEarthObject(designation={self.designation!r}, "
                 f"name={self.name!r}, "
                 f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})")
@@ -100,6 +98,7 @@ class CloseApproach:
     # If you make changes, be sure to update the comments in this file.
     def __init__(self, des, time, distance: float, velocity: float, neo=None):
         """Create a new `CloseApproach`.
+
         :param time: The date and time, in UTC, at which the NEO passes closest
          to Earth.
         :param distance: The nominal approach distance, in astronomical units,
@@ -121,8 +120,7 @@ class CloseApproach:
 
     @property
     def time_str(self):
-        """Return a formatted representation of this `CloseApproach`'s approach
-         time.
+        """Return a formatted representation of approach time.
 
         The value in `self.time` should be a Python `datetime` object. While a
         `datetime` object has a string representation, the default
@@ -144,8 +142,7 @@ class CloseApproach:
                f"{self.velocity:} km/h"
 
     def __repr__(self):
-        """Return `repr(self)`, a computer-readable string representation of
-         this object."""
+        """Return `repr(self)`, a computer-readable string representation."""
         return (
             f"CloseApproach(time={self.time_str!r}, distance={self.distance} "
             f"velocity={self.velocity}, neo={self.neo})")

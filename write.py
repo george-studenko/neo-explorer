@@ -41,6 +41,7 @@ def write_to_csv(results, filename):
 
 
 def get_csv_row(result):
+    """Format a row to export to csv."""
     row = dict()
     row['datetime_utc'] = datetime_to_str(result.time)
     row['distance_au'] = result.distance
@@ -71,6 +72,7 @@ def write_to_json(results, filename):
 
 
 def get_json_row(result):
+    """Format a row to export to JSON."""
     approach = dict()
     neo = dict()
     approach['datetime_utc'] = datetime_to_str(result.time)
